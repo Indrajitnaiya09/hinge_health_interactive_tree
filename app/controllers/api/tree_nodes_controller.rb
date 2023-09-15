@@ -15,7 +15,11 @@ module Api
       begin
         create_params
         check_presence
-        raise CustomErrorHandler::DataTypeError, "The parent should be null or string type" unless create_params[:parent].nil? || create_params[:parent].class == String
+        unless create_params[:parent].nil? || create_params[:parent].instance_of?(String)
+          raise CustomErrorHandler::DataTypeError,
+                'The parent should be null or string type'
+        end
+
         if create_params[:parent].nil?
           interactive_node = TreeNode.new(generate_id, create_params[:label])
           TreeNode.link_to_tree(interactive_node)
@@ -24,7 +28,7 @@ module Api
       rescue CustomErrorHandler::DataTypeError, CustomErrorHandler::ParamMissingError => e
         return render_error_message(e)
       rescue ActionController::ParameterMissing
-        (render json:  { message: "Parameter missing" }, status: :bad_request) && return
+        (render json: { message: 'Parameter missing' }, status: :bad_request) && return
       end
       return unless is_valid_root_index?
 
@@ -33,7 +37,7 @@ module Api
         TreeNode.link_to_tree(interactive_node, create_params[:root_index])
         render json: { message: "This node (id: #{ interactive_node.id }) is added to the end of a list of children of Parent (id: #{ create_params[:parent] })!!" }, status: :created
       rescue CustomErrorHandler::ParentNotFoundError => e
-        return render_error_message(e)
+        render_error_message(e)
       end
     end
 
@@ -57,18 +61,21 @@ module Api
     end
 
     def validate_root_index
-      raise CustomErrorHandler::DataTypeError, "The root index Type cannot be string"  if create_params[:root_index].class == String
+      if create_params[:root_index].instance_of?(String)
+        raise CustomErrorHandler::DataTypeError,
+              'The root index Type cannot be string'
+      end
+
       create_params[:root_index] < TreeNode.tree.size
     end
 
     def render_error_message(error)
-      render json:  { message: error.message }, status: error.status
+      render json: { message: error.message }, status: error.status
     end
 
     def check_presence
-      raise CustomErrorHandler::ParamMissingError if !(create_params.has_key?(:parent) &&
-        create_params.has_key?(:label) ) ||
-        (create_params[:label] == nil)
+      raise CustomErrorHandler::ParamMissingError if !(create_params.key?(:parent) &&
+        create_params.key?(:label)) || create_params[:label].nil?
     end
   end
 end

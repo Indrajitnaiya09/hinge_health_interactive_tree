@@ -46,6 +46,7 @@ class TreeNode
 
   def process_insert_request(parent_id, root_index)
     raise CustomErrorHandler::ParentNotFoundError, "Parent id - '#{parent_id}' not found" if @@TREE[root_index].nil?
+
     # find_parent
     current_tree = @@TREE[root_index]
     parent = if current_tree.key?(parent_id)
@@ -56,7 +57,8 @@ class TreeNode
              end
 
     raise CustomErrorHandler::ParentNotFoundError, "Parent id - '#{parent_id}' not found" unless parent
-    #insert new record inside parent
+
+    # insert new record inside parent
     link_node_to_parent(parent, self)
   end
 
