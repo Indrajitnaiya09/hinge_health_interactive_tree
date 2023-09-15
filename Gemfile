@@ -21,6 +21,10 @@ group :development do
   gem 'rack-mini-profiler', '~> 2.0'
   gem 'listen', '~> 3.3'
   gem 'spring'
+  gem 'pry'
+  gem 'rubocop'
+  gem 'rubocop-performance', '~> 1.19'
+  gem 'rspec-rails', '~> 4.1.0'
 end
 
 group :test do
