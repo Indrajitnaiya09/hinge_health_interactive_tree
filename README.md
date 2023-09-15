@@ -1,24 +1,57 @@
-# README
+## Description
+- I build a service that manages and manipulates trees.
+- with the piece of codeI'll be ready to demonstrate
+- Good design decisions.
+- Ability to consider edge cases.
+- Documentation
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Development Environment
+- make sure you have the right version install in your system.
+- ruby 3.0.0p0
+- Rails 6.1.7.6
+- If you do not have same version available in your system, then download the correct version from here. [Link](https://gorails.com/setup/macos/13-ventura)
+- Or You can use the following command to install the required version.
+```aidl
+rbenv install -l
+rbenv install 3.0.0
+rbenv local 3.0.0
+ruby -v     #by this time it should display ruby 3.0.0p0
+echo "gem: --no-document" > ~/.gemrc
+gem install bundler
+gem env home
+gem install rails -v 6.1.7.4
+rbenv rehash
+rails -v #by this time it should display Rails 6.1.7.6
+```
 
-Things you may want to cover:
+## How to run this project
+```
+git clone git@github.com:Indrajitnaiya09/hinge_health_interactive_tree.git
+```
+- open new terminal and navigate to the correct directory
 
-* Ruby version
+```
+bundle install
+rails db:create
+rails db:migrate
+rails s -p 3000 
 
-* System dependencies
+```
 
-* Configuration
+Using postman do GET / POST http://localhost:3000/interactive_nodes
+NOTE: as of now `/api/tree` routing is not implemented.
+```
+body:
+{
+    "parent": null,
+    "label": "Root"
+}
+```
+will be able to validate
+Task 1:
+- The data structure that represents [the animals example](https://github.com/Hinge-Health-Recruiting/interviews-services_indrajitnaiya09).
+- Will cause a node to be added to the end of a list of children, a new unique id should be assigned by the service.
+- The response should be simple
+  Task 2:
+- Implement the route, and ensure that a GET /interactive_nodes request returns the updated tree.
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
