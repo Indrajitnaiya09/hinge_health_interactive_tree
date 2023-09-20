@@ -38,8 +38,8 @@ rails s -p 3000
 
 ```
 
-Using postman do GET / POST http://localhost:3000/interactive_nodes
-NOTE: as of now `/api/tree` routing is not implemented.
+Using postman do GET / POST http://localhost:3000/api/tree
+
 ```
 body:
 {
@@ -55,3 +55,18 @@ Task 1:
   Task 2:
 - Implement the route, and ensure that a GET /interactive_nodes request returns the updated tree.
 
+## Implementation summary:
+- `POST` with body parameters
+```aidl
+{
+    "parent": null,
+    "label": "some_name"
+}
+```
+consider as valid params, and insert as root node.
+- If one node is present as root node, then it'll insert as 2nd position/index.
+- default operation(search and insert) will perform only in a 0th index.
+- Introduced `root_index` as an optional params. So, if user pass any `root_index` value, then will check that index is
+  present or not. If present, then operation(search and insert) will perform on that index.
+
+Example of CURL Calls can be found in `curl.txt`
