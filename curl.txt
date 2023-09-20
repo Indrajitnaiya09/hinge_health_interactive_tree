@@ -1,0 +1,115 @@
+GET request
+
+curl --location 'localhost:3000/api/tree' \
+--header 'Cookie: __profilin=p%3Dt'
+
+Example response:
+
+[
+    {
+        "48d70557-3cfb-4d83-8b44-2e31091f9a61": {
+            "label": "root",
+            "children": [
+                {
+                    "5fb4baa6-6021-472f-88a6-9c5d9857beb0": {
+                        "label": "cat",
+                        "children": []
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "084cfdc0-2d89-47a0-9cce-ed6748e23839": {
+            "label": "root-2",
+            "children": [
+                {
+                    "ac59529d-9765-4df1-8e57-f3d6089ee003": {
+                        "label": "root-2",
+                        "children": []
+                    }
+                },
+                {
+                    "ea44f76a-7369-4b6a-bd57-28c7668ea946": {
+                        "label": "Dog",
+                        "children": []
+                    }
+                }
+            ]
+        }
+    }
+]
+
+****************************************************************************************************
+
+POST ( enter node at root level)
+
+curl --location 'localhost:3000/api/tree' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: __profilin=p%3Dt' \
+--data '{
+    "parent": null,
+    "label": "root"
+}'
+
+Example response:
+
+{
+    "message": "This node (id: 48d70557-3cfb-4d83-8b44-2e31091f9a61) added as root!!"
+}
+
+****************************************************************************************************
+
+POST (entering multiple root node)
+
+curl --location 'localhost:3000/api/tree' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: __profilin=p%3Dt' \
+--data '{
+    "parent": null,
+    "label": "root-2"
+}'
+
+Example response:
+
+{
+    "message": "This node (id: 084cfdc0-2d89-47a0-9cce-ed6748e23839) added as root!!"
+}
+
+****************************************************************************************************
+
+POST (enter node at child level)
+
+curl --location 'localhost:3000/api/tree' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: __profilin=p%3Dt' \
+--data '{
+    "parent": "48d70557-3cfb-4d83-8b44-2e31091f9a61",
+    "label": "cat"
+}'
+
+Example response:
+
+{
+    "message": "This node (id: 5fb4baa6-6021-472f-88a6-9c5d9857beb0) is added to the end of a list of children of Parent (id: 48d70557-3cfb-4d83-8b44-2e31091f9a61)!!"
+}
+
+****************************************************************************************************
+
+POST (enter node at child level for root node other than index 0)
+
+curl --location 'localhost:3000/api/tree' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: __profilin=p%3Dt' \
+--data '{
+    "parent": "084cfdc0-2d89-47a0-9cce-ed6748e23839",
+    "label": "Dog",
+    "root_index": 1 //(optional and if given it'll search node at that index, default is 0)
+}'
+
+Example response:
+{
+    "message": "This node (id: ea44f76a-7369-4b6a-bd57-28c7668ea946) is added to the end of a list of children of Parent (id: 084cfdc0-2d89-47a0-9cce-ed6748e23839)!!"
+}
+
+****************************************************************************************************
