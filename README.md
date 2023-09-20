@@ -25,10 +25,20 @@ rails -v #by this time it should display Rails 6.1.7.6
 ```
 
 ## How to run this project
+
 ```
 git clone git@github.com:Indrajitnaiya09/hinge_health_interactive_tree.git
 ```
 - open new terminal and navigate to the correct directory
+1.  Recommended way: Run using Docker (Docker should be installed in your system.)
+```aidl
+docker-compose up
+```
+2. Running on local system(Optional)
+- ENV variable need to set in:
+  * DB_NAME
+  * DB_USERNAME
+  * DB_PASSWORD
 
 ```
 bundle install

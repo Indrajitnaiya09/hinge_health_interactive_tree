@@ -62,21 +62,21 @@ SQL query to select all the parents
  ```aidl
  SELECT id, label, children_ids, root_index
   FROM trees
-  WHERE is_root == true.
+  WHERE is_root = 'true';
 ```
 
 SQL query to select parent by root_index 
  ```aidl
  SELECT id, label, children_ids, root_index
   FROM trees
-  WHERE is_root == true
-  AND root_index == 1.
+  WHERE is_root = 'true'
+  AND root_index = 1;
 ```
 SQL query to select children
 ```aidl
 SELECT id, label, children_ids, root_index
   FROM trees
-  WHERE id IN (each id in children_ids)
+  WHERE id IN (each id in children_ids);
 ```
 SQL query to insert into the database
 ```aidl
